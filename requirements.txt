@@ -1,0 +1,8 @@
+# Multi-Agent Team Information System
+# Python 3.8+ required
+
+# No external dependencies required - uses only Python standard library
+# The system is built with:
+# - re (regular expressions)
+# - os (file system operations)
+# - typing (type hints)

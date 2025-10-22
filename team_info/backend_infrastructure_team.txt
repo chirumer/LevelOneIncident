@@ -1,0 +1,64 @@
+Team Name: Backend Infrastructure Team
+Team Lead: Robert Zhang
+Members: Amanda White, Kevin Park, Sophia Turner, James Wilson
+
+=== JIRA Integration Data ===
+
+Active Issues:
+- INFRA-301: Migrate database to new cluster (Priority: High, Status: In Progress)
+  - Opened: 2024-09-20
+  - Last Updated: 2024-10-20
+  - Assigned to: Kevin Park
+  - Comments: Migration scheduled for 2024-10-25
+
+- INFRA-302: Implement auto-scaling for API servers (Priority: Medium, Status: In Progress)
+  - Opened: 2024-10-01
+  - Last Updated: 2024-10-18
+  - Assigned to: Amanda White
+
+- INFRA-303: TSUNAMI integration support (Priority: High, Status: Completed)
+  - Opened: 2024-10-05
+  - Completed: 2024-10-14
+  - Assigned to: Sophia Turner
+  - Comments: Provided infrastructure support for TSUNAMI team's security fixes
+
+- INFRA-304: Redis cache optimization (Priority: Medium, Status: In Progress)
+  - Opened: 2024-10-12
+  - Last Updated: 2024-10-21
+  - Assigned to: James Wilson
+
+=== Confluence Integration Data ===
+
+Recent Documentation:
+- "Infrastructure Monitoring Guide" - Updated 2024-10-15
+- "Database Migration Runbook" - Created 2024-09-22
+- "TSUNAMI Infrastructure Support" - Created 2024-10-06
+
+Meeting Notes:
+- 2024-10-04: TSUNAMI infrastructure requirements discussion
+  - Attendees: Robert Zhang, Sophia Turner, Sarah Chen (TSUNAMI team)
+  - Duration: 1 hour
+  - Key Decision: Allocate dedicated resources for TSUNAMI security improvements
+
+- 2024-10-11: Database migration planning
+  - Attendees: All team members
+  - Duration: 2 hours
+  - Key Decision: Finalize migration date and rollback procedures
+
+- 2024-10-18: Weekly infrastructure review
+  - Attendees: Robert Zhang, Amanda White, Kevin Park
+  - Duration: 45 minutes
+  - Discussed: Auto-scaling implementation and TSUNAMI support completion
+
+=== Slack Integration Data ===
+
+Key Discussions:
+- TSUNAMI mentioned 8 times in #infrastructure channel (context: support requests)
+- 34 alerts handled (last 7 days)
+- 3 incidents resolved
+
+Team Activity:
+- Total commits: 98 (last 30 days)
+- Infrastructure changes: 23 deployed
+- Average incident response time: 15 minutes
+- Uptime: 99.97%

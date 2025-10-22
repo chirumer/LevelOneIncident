@@ -1,0 +1,57 @@
+Team Name: TSUNAMI Response Team
+Team Lead: Sarah Chen
+Members: Mike Johnson, Emily Rodriguez, David Kim, Lisa Wang
+
+=== JIRA Integration Data ===
+
+Active Issues:
+- TSUNAMI-101: Critical vulnerability in authentication module (Priority: High, Status: In Progress)
+  - Opened: 2024-10-01
+  - Last Updated: 2024-10-15
+  - Assigned to: Mike Johnson
+  - Comments: 3 security patches applied, testing in progress
+
+- TSUNAMI-102: Database connection timeout issues (Priority: Medium, Status: Resolved)
+  - Opened: 2024-10-05
+  - Resolved: 2024-10-12
+  - Assigned to: David Kim
+  
+- TSUNAMI-103: API rate limiting implementation (Priority: High, Status: In Progress)
+  - Opened: 2024-10-08
+  - Last Updated: 2024-10-20
+  - Assigned to: Emily Rodriguez
+
+=== Confluence Integration Data ===
+
+Recent Documentation:
+- "TSUNAMI Incident Response Protocol" - Updated 2024-10-10
+- "Security Best Practices for TSUNAMI" - Created 2024-10-03
+- "TSUNAMI Architecture Overview" - Updated 2024-10-18
+
+Meeting Notes:
+- 2024-10-02: Emergency meeting to address TSUNAMI-101 vulnerability
+  - Attendees: All team members
+  - Duration: 2 hours
+  - Key Decision: Implement immediate hotfix and schedule full security audit
+  
+- 2024-10-09: Weekly standup - TSUNAMI progress review
+  - Attendees: Sarah Chen, Mike Johnson, Emily Rodriguez
+  - Duration: 30 minutes
+  - Discussed: Progress on TSUNAMI-101 and TSUNAMI-103
+  
+- 2024-10-16: TSUNAMI security audit planning
+  - Attendees: Sarah Chen, Mike Johnson, Lisa Wang
+  - Duration: 1 hour
+  - Key Decision: Schedule external security review for next month
+
+=== Slack Integration Data ===
+
+Key Discussions:
+- TSUNAMI mentioned 47 times in #security channel (last 30 days)
+- TSUNAMI mentioned 23 times in #team-updates channel (last 30 days)
+- 12 urgent alerts related to TSUNAMI issues
+
+Team Activity:
+- Total commits: 156 (last 30 days)
+- Code reviews: 34 completed
+- Average response time: 2.3 hours

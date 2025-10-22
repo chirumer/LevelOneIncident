@@ -1,0 +1,58 @@
+Team Name: Frontend Development Team
+Team Lead: Alex Martinez
+Members: Jessica Lee, Tom Brown, Rachel Green, Chris Evans
+
+=== JIRA Integration Data ===
+
+Active Issues:
+- FRONT-201: Redesign user dashboard (Priority: High, Status: In Progress)
+  - Opened: 2024-09-25
+  - Last Updated: 2024-10-19
+  - Assigned to: Jessica Lee
+  - Comments: UI mockups approved, implementation 60% complete
+
+- FRONT-202: Mobile responsiveness issues on checkout page (Priority: Critical, Status: In Progress)
+  - Opened: 2024-10-10
+  - Last Updated: 2024-10-21
+  - Assigned to: Tom Brown
+  - Comments: Affecting 15% of mobile users
+
+- FRONT-203: Implement dark mode (Priority: Low, Status: Backlog)
+  - Opened: 2024-10-15
+  - Assigned to: Unassigned
+
+=== Confluence Integration Data ===
+
+Recent Documentation:
+- "Frontend Architecture Guidelines" - Updated 2024-10-12
+- "Component Library Documentation" - Updated 2024-10-18
+- "Accessibility Standards" - Created 2024-10-05
+
+Meeting Notes:
+- 2024-10-03: Sprint planning for Q4
+  - Attendees: All team members
+  - Duration: 2 hours
+  - Key Decision: Prioritize dashboard redesign and mobile fixes
+
+- 2024-10-10: Emergency meeting for mobile checkout issues
+  - Attendees: Alex Martinez, Tom Brown, Rachel Green
+  - Duration: 45 minutes
+  - Key Decision: Hotfix to be deployed within 48 hours
+
+- 2024-10-17: Design review session
+  - Attendees: Jessica Lee, Alex Martinez, Chris Evans
+  - Duration: 1.5 hours
+  - Reviewed: New dashboard designs and user feedback
+
+=== Slack Integration Data ===
+
+Key Discussions:
+- 89 messages in #frontend channel (last 7 days)
+- 12 design iterations shared
+- 5 user feedback sessions conducted
+
+Team Activity:
+- Total commits: 203 (last 30 days)
+- Code reviews: 56 completed
+- Average response time: 1.8 hours
+- Pull requests merged: 42
