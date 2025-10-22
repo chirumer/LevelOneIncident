@@ -141,6 +141,37 @@ class IncidentResponseHandler(BaseHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(json.dumps({"success": True, "data": incident_data}).encode())
     
+    def _generate_teams_list_html(self):
+        """Generate HTML list of teams involved in the incident response."""
+        if not self.current_incident_data:
+            return ""
+        
+        assignments = self.current_incident_data.get('assignments', [])
+        if not assignments:
+            return ""
+        
+        html = """
+        <div style="margin-top: 20px; padding: 15px; background: #f9fafb; border-radius: 8px; border-left: 4px solid #667eea;">
+            <h4 style="margin: 0 0 10px 0; color: #333; font-size: 14px;">👥 Responding Teams:</h4>
+            <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+        """
+        
+        for assignment in assignments:
+            team_name = assignment.get('team_name', 'Unknown Team')
+            task_count = assignment.get('task_count', 0)
+            html += f"""
+                <div style="background: white; padding: 8px 12px; border-radius: 6px; border: 1px solid #e5e7eb; font-size: 13px;">
+                    <strong>{team_name}</strong> <span style="color: #6b7280;">({task_count} tasks)</span>
+                </div>
+            """
+        
+        html += """
+            </div>
+        </div>
+        """
+        
+        return html
+    
     def _generate_incident_overview_html(self):
         """Generate HTML for incident overview with comprehensive details."""
         if not self.current_incident_data:
@@ -373,6 +404,31 @@ class IncidentResponseHandler(BaseHTTPRequestHandler):
             font-size: 16px;
         }}
         
+        .example-buttons {{
+            display: flex;
+            gap: 10px;
+            margin: 15px 0 25px 0;
+            flex-wrap: wrap;
+        }}
+        
+        .example-btn {{
+            background: white;
+            border: 2px solid #667eea;
+            color: #667eea;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }}
+        
+        .example-btn:hover {{
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+        }}
+        
         .loading {{
             text-align: center;
             padding: 40px;
@@ -401,8 +457,22 @@ class IncidentResponseHandler(BaseHTTPRequestHandler):
             <p>Multi-agent task coordination and visualization platform</p>
         </div>
         
-        <div class="incident-form">
+        <div class="incident-form" id="incidentFormContainer">
             <h2 style="margin-bottom: 20px;">📋 Incident Report</h2>
+            <div style="background: #f0f9ff; border-left: 4px solid #667eea; padding: 15px; margin-bottom: 25px; border-radius: 6px;">
+                <p style="margin: 0 0 12px 0; font-size: 14px; color: #1e40af; font-weight: 600;">
+                    💡 Quick Examples
+                </p>
+                <p style="margin: 0 0 12px 0; font-size: 13px; color: #1e40af;">
+                    Click any button to auto-fill the form with a sample incident:
+                </p>
+                <div class="example-buttons" style="margin: 0;">
+                    <button type="button" class="example-btn" onclick="loadExample('rds')">💾 RDS Outage</button>
+                    <button type="button" class="example-btn" onclick="loadExample('security')">🔒 Security Breach</button>
+                    <button type="button" class="example-btn" onclick="loadExample('lambda')">⚡ Lambda Timeout</button>
+                    <button type="button" class="example-btn" onclick="loadExample('s3')">📦 S3 Access Issue</button>
+                </div>
+            </div>
             <form id="incidentForm">
                 <div class="form-group">
                     <label for="title">Incident Title *</label>
@@ -485,6 +555,7 @@ class IncidentResponseHandler(BaseHTTPRequestHandler):
                         <div class="stat-label">Teams Involved</div>
                     </div>
                 </div>
+                {self._generate_teams_list_html() if self.current_incident_data else ''}
             </div>
             
             <div class="section">
@@ -533,6 +604,10 @@ class IncidentResponseHandler(BaseHTTPRequestHandler):
                 const result = await response.json();
                 
                 if (result.success) {{
+                    // Hide form and header, show only results
+                    document.getElementById('incidentFormContainer').style.display = 'none';
+                    document.querySelector('.header p').innerHTML = '<a href="/" style="color: #667eea; text-decoration: none;">← Report New Incident</a>';
+                    
                     // Reload page to show results
                     window.location.reload();
                 }} else {{
@@ -541,6 +616,90 @@ class IncidentResponseHandler(BaseHTTPRequestHandler):
             }} catch (error) {{
                 alert('Error creating incident: ' + error.message);
                 resultsDiv.style.display = 'none';
+            }}
+        }});
+        
+        // Example incident scenarios
+        function loadExample(type) {{
+            const examples = {{
+                'rds': {{
+                    title: 'Production RDS Connection Pool Exhaustion',
+                    description: 'PostgreSQL RDS instance (prod-db-01) experiencing connection pool exhaustion. Started at 14:30 UTC. Authentication service unable to establish database connections, causing cascading failures across API endpoints.',
+                    severity: 'critical',
+                    deadline: 4,
+                    affected_services: 'RDS, EC2, Lambda, API Gateway',
+                    impact: 'Complete service outage - users unable to login, all API requests failing with 500 errors. Approximately 50,000 active users affected.',
+                    reported_by: 'CloudWatch Alarm',
+                    detection_method: 'monitoring',
+                    initial_actions: 'Verified RDS instance health, checked CloudWatch metrics showing 100% connection pool utilization, attempted connection pool restart (failed)'
+                }},
+                'security': {{
+                    title: 'Suspicious IAM Activity Detected',
+                    description: 'GuardDuty detected unusual IAM role assumption patterns from unknown IP addresses. Multiple failed authentication attempts followed by successful access to S3 buckets containing customer data.',
+                    severity: 'critical',
+                    deadline: 2,
+                    affected_services: 'IAM, S3, CloudTrail, GuardDuty',
+                    impact: 'Potential data breach - unauthorized access to customer data buckets. No confirmed data exfiltration yet but access logs show suspicious read operations.',
+                    reported_by: 'Security Team',
+                    detection_method: 'automated',
+                    initial_actions: 'Revoked compromised IAM credentials, enabled MFA requirement, isolated affected S3 buckets, initiated CloudTrail log analysis'
+                }},
+                'lambda': {{
+                    title: 'Lambda Function Timeout Spike',
+                    description: 'Payment processing Lambda functions experiencing widespread timeouts (>90% failure rate). Functions timing out after 30 seconds when attempting to connect to external payment gateway API.',
+                    severity: 'high',
+                    deadline: 6,
+                    affected_services: 'Lambda, API Gateway, DynamoDB, SQS',
+                    impact: 'Payment processing completely down. Users unable to complete purchases. Estimated revenue loss: $5,000/hour. Queue backlog building up in SQS.',
+                    reported_by: 'Customer Support',
+                    detection_method: 'customer',
+                    initial_actions: 'Checked Lambda CloudWatch logs, verified payment gateway API status (operational), increased Lambda timeout to 60s (no improvement), scaled up concurrent executions'
+                }},
+                's3': {{
+                    title: 'S3 Bucket Access Denied Errors',
+                    description: 'Production application unable to access S3 bucket (prod-assets-bucket) due to permission errors. Bucket policy was recently updated and appears to have incorrect IAM permissions.',
+                    severity: 'medium',
+                    deadline: 12,
+                    affected_services: 'S3, CloudFront, EC2',
+                    impact: 'Static assets (images, CSS, JS) not loading on website. Users seeing broken images and unstyled pages. Approximately 30% of page functionality affected.',
+                    reported_by: 'DevOps Team',
+                    detection_method: 'internal',
+                    initial_actions: 'Reviewed recent S3 bucket policy changes, attempted to rollback policy (access denied), verified IAM role permissions, checked CloudTrail for policy modification events'
+                }}
+            }};
+            
+            const example = examples[type];
+            if (example) {{
+                document.getElementById('title').value = example.title;
+                document.getElementById('description').value = example.description;
+                document.getElementById('severity').value = example.severity;
+                document.getElementById('deadline').value = example.deadline;
+                document.getElementById('affected_services').value = example.affected_services;
+                document.getElementById('impact').value = example.impact;
+                document.getElementById('reported_by').value = example.reported_by;
+                document.getElementById('detection_method').value = example.detection_method;
+                document.getElementById('initial_actions').value = example.initial_actions;
+                
+                // Scroll to form
+                document.getElementById('title').scrollIntoView({{ behavior: 'smooth', block: 'center' }});
+            }}
+        }}
+        
+        // On page load, hide form if results are shown
+        window.addEventListener('DOMContentLoaded', function() {{
+            const resultsDiv = document.getElementById('results');
+            const formContainer = document.getElementById('incidentFormContainer');
+            const headerSubtitle = document.querySelector('.header p');
+            
+            if (resultsDiv && resultsDiv.style.display === 'block') {{
+                // Hide the form
+                formContainer.style.display = 'none';
+                
+                // Change header subtitle to "Report New Incident" link
+                headerSubtitle.innerHTML = '<a href="/" style="color: white; text-decoration: none; background: rgba(255,255,255,0.2); padding: 8px 16px; border-radius: 6px; display: inline-block; transition: all 0.2s;" onmouseover="this.style.background=\\'rgba(255,255,255,0.3)\\'" onmouseout="this.style.background=\\'rgba(255,255,255,0.2)\\'">← Report New Incident</a>';
+                
+                // Scroll to results
+                resultsDiv.scrollIntoView({{ behavior: 'smooth' }});
             }}
         }});
     </script>
