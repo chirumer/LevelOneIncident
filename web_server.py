@@ -141,6 +141,101 @@ class IncidentResponseHandler(BaseHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(json.dumps({"success": True, "data": incident_data}).encode())
     
+    def _generate_internals_html(self):
+        """Generate HTML explaining the internal coordination process."""
+        if not self.current_incident_data:
+            return ""
+        
+        assignments = self.current_incident_data.get('assignments', [])
+        
+        html = """
+        <div style="background: #f9fafb; border-radius: 8px; padding: 20px; border: 2px solid #e5e7eb;">
+            <h3 style="margin: 0 0 15px 0; color: #059669;">🤖 Multi-Agent Coordination Process</h3>
+            
+            <div style="background: white; padding: 15px; border-radius: 6px; margin-bottom: 15px; border-left: 4px solid #3b82f6;">
+                <h4 style="margin: 0 0 10px 0; color: #1e40af;">📡 Step 1: Incident Broadcast</h4>
+                <p style="margin: 0; color: #4b5563; font-size: 14px;">
+                    The <strong>Master Agent</strong> received your incident report and broadcast it to all team agents. 
+                    Each team agent independently analyzed the incident based on their expertise and current workload.
+                </p>
+            </div>
+            
+            <div style="background: white; padding: 15px; border-radius: 6px; margin-bottom: 15px; border-left: 4px solid #8b5cf6;">
+                <h4 style="margin: 0 0 10px 0; color: #6d28d9;">🧠 Step 2: Team Agent Analysis</h4>
+                <p style="margin: 0 0 10px 0; color: #4b5563; font-size: 14px;">
+                    Each team agent has access to real-time data from multiple sources:
+                </p>
+                <ul style="margin: 0; padding-left: 20px; color: #4b5563; font-size: 14px;">
+                    <li><strong>JIRA Integration:</strong> Current sprint tasks, team capacity, and ongoing work</li>
+                    <li><strong>Confluence:</strong> Team documentation, runbooks, and procedures</li>
+                    <li><strong>Slack Activity:</strong> Recent discussions, mentions, and team availability</li>
+                    <li><strong>Team Expertise:</strong> Technical skills and domain knowledge</li>
+                    <li><strong>Historical Data:</strong> Past incidents and resolution patterns</li>
+                </ul>
+            </div>
+        """
+        
+        # Add team-specific analysis
+        for assignment in assignments:
+            team_name = assignment.get('team_name', 'Unknown Team')
+            task_count = assignment.get('task_count', 0)
+            
+            html += f"""
+            <div style="background: white; padding: 15px; border-radius: 6px; margin-bottom: 15px; border-left: 4px solid #f59e0b;">
+                <h4 style="margin: 0 0 10px 0; color: #d97706;">👥 {team_name}</h4>
+                <p style="margin: 0 0 8px 0; color: #4b5563; font-size: 14px;">
+                    <strong>Relevance Analysis:</strong> This team calculated their relevance score by matching incident keywords 
+                    with their expertise areas and checking for similar past incidents.
+                </p>
+                <p style="margin: 0 0 8px 0; color: #4b5563; font-size: 14px;">
+                    <strong>Task Generation:</strong> Based on relevance, the team agent proposed <strong>{task_count} tasks</strong> 
+                    by analyzing:
+                </p>
+                <ul style="margin: 0; padding-left: 20px; color: #4b5563; font-size: 13px;">
+                    <li>Current team capacity from JIRA</li>
+                    <li>Relevant runbooks from Confluence</li>
+                    <li>Team member availability from Slack</li>
+                    <li>Historical incident response patterns</li>
+                </ul>
+            </div>
+            """
+        
+        html += """
+            <div style="background: white; padding: 15px; border-radius: 6px; margin-bottom: 15px; border-left: 4px solid #ec4899;">
+                <h4 style="margin: 0 0 10px 0; color: #be185d;">🔗 Step 3: Dependency Analysis</h4>
+                <p style="margin: 0; color: #4b5563; font-size: 14px;">
+                    The <strong>Master Agent</strong> analyzed all proposed tasks and automatically identified dependencies. 
+                    Tasks were linked based on:
+                </p>
+                <ul style="margin: 5px 0 0 0; padding-left: 20px; color: #4b5563; font-size: 14px;">
+                    <li>Technical dependencies (e.g., "diagnose issue" before "implement fix")</li>
+                    <li>Resource dependencies (e.g., shared infrastructure)</li>
+                    <li>Priority ordering (critical tasks first)</li>
+                </ul>
+            </div>
+            
+            <div style="background: white; padding: 15px; border-radius: 6px; margin-bottom: 15px; border-left: 4px solid #10b981;">
+                <h4 style="margin: 0 0 10px 0; color: #059669;">📊 Step 4: Visualization & Coordination</h4>
+                <p style="margin: 0; color: #4b5563; font-size: 14px;">
+                    The Master Agent generated the task dependency graph and prioritized assignments. 
+                    The graph shows the optimal execution order, and tasks are assigned to teams based on 
+                    expertise, capacity, and current workload.
+                </p>
+            </div>
+            
+            <div style="background: #fef3c7; padding: 15px; border-radius: 6px; border-left: 4px solid #f59e0b;">
+                <h4 style="margin: 0 0 10px 0; color: #d97706;">💡 Key Insight</h4>
+                <p style="margin: 0; color: #92400e; font-size: 14px;">
+                    This entire coordination process happened in <strong>seconds</strong>. Each team agent independently 
+                    analyzed the incident using their own context (JIRA, Confluence, Slack data), and the Master Agent 
+                    synthesized their proposals into a coordinated response plan. No human intervention was needed!
+                </p>
+            </div>
+        </div>
+        """
+        
+        return html
+    
     def _generate_teams_list_html(self):
         """Generate HTML list of teams involved in the incident response."""
         if not self.current_incident_data:
@@ -567,6 +662,16 @@ class IncidentResponseHandler(BaseHTTPRequestHandler):
                 <div class="section-title">📋 Task Assignments</div>
                 {assignments_html if assignments_html else '<div class="no-data">No assignments available</div>'}
             </div>
+            
+            <div class="section">
+                <button onclick="toggleInternals()" class="btn" style="width: 100%; background: linear-gradient(135deg, #10b981 0%, #059669 100%);">
+                    🔍 See Internals - How We Generated This Response
+                </button>
+                
+                <div id="internals" style="display: none; margin-top: 20px;">
+                    {self._generate_internals_html() if self.current_incident_data else ''}
+                </div>
+            </div>
         </div>
     </div>
     
@@ -682,6 +787,21 @@ class IncidentResponseHandler(BaseHTTPRequestHandler):
                 
                 // Scroll to form
                 document.getElementById('title').scrollIntoView({{ behavior: 'smooth', block: 'center' }});
+            }}
+        }}
+        
+        // Toggle internals section
+        function toggleInternals() {{
+            const internalsDiv = document.getElementById('internals');
+            const button = event.target;
+            
+            if (internalsDiv.style.display === 'none') {{
+                internalsDiv.style.display = 'block';
+                button.textContent = '🔼 Hide Internals';
+                internalsDiv.scrollIntoView({{ behavior: 'smooth', block: 'nearest' }});
+            }} else {{
+                internalsDiv.style.display = 'none';
+                button.textContent = '🔍 See Internals - How We Generated This Response';
             }}
         }}
         
