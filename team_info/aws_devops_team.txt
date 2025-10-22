@@ -1,0 +1,76 @@
+Team Name: AWS DevOps Team
+Team Lead: Sarah Chen
+Members: Sarah Chen, Mike Rodriguez, Alex Kumar, Jennifer Lee, David Park
+
+=== Team Overview ===
+The AWS DevOps team manages cloud infrastructure, CI/CD pipelines, monitoring, and incident response for all AWS services.
+
+=== JIRA Integration Data ===
+
+Active Issues:
+- DEVOPS-101: Implement auto-scaling for production EC2 instances
+  Status: In Progress
+  Priority: High
+  Assignee: Sarah Chen
+  
+- DEVOPS-102: Set up CloudWatch alarms for RDS performance
+  Status: To Do
+  Priority: Medium
+  Assignee: Mike Rodriguez
+  
+- DEVOPS-103: Optimize Lambda cold start times
+  Status: In Progress
+  Priority: High
+  Assignee: Alex Kumar
+
+- DEVOPS-104: Configure AWS Backup for critical resources
+  Status: Done
+  Priority: High
+  Assignee: Jennifer Lee
+
+=== Confluence Integration Data ===
+
+Key Documentation:
+- AWS Infrastructure Architecture
+- Deployment Runbooks
+- Incident Response Procedures
+- CloudFormation Templates
+- Terraform Modules
+
+Recent Updates:
+- Updated disaster recovery procedures
+- New monitoring dashboards in CloudWatch
+- EKS cluster upgrade documentation
+
+=== AWS Services Managed ===
+- EC2 (Auto Scaling Groups, Load Balancers)
+- ECS/EKS (Container orchestration)
+- Lambda (Serverless functions)
+- CloudWatch (Monitoring and logging)
+- CloudFormation/Terraform (Infrastructure as Code)
+- CodePipeline/CodeDeploy (CI/CD)
+- S3 (Storage and backups)
+- Route53 (DNS management)
+
+=== Slack Integration Data ===
+
+Key Discussions:
+- DEVOPS mentioned 89 times in #infrastructure channel (last 30 days)
+- 45 alerts in #aws-alerts channel
+- 23 deployment notifications in #deployments
+
+Team Activity:
+- Total deployments: 67 (last 30 days)
+- Infrastructure changes: 34
+- Average deployment time: 12 minutes
+- Success rate: 98.5%
+
+=== On-Call Rotation ===
+Current on-call: Sarah Chen
+Backup: Mike Rodriguez
+Escalation: Alex Kumar
+
+=== Recent Incidents ===
+- 2024-10-15: EC2 instance failure - resolved in 15 minutes
+- 2024-10-10: RDS connection pool exhaustion - resolved in 30 minutes
+- 2024-10-05: Lambda timeout issues - resolved in 45 minutes

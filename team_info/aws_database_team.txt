@@ -1,0 +1,76 @@
+Team Name: AWS Database Team
+Team Lead: Maria Garcia
+Members: Maria Garcia, Tom Anderson, Priya Patel, Kevin Brown, Rachel Kim
+
+=== Team Overview ===
+The AWS Database team manages all database services including RDS, DynamoDB, ElastiCache, and database performance optimization.
+
+=== JIRA Integration Data ===
+
+Active Issues:
+- DB-301: Optimize RDS PostgreSQL query performance
+  Status: In Progress
+  Priority: High
+  Assignee: Maria Garcia
+  
+- DB-302: Implement DynamoDB auto-scaling
+  Status: To Do
+  Priority: Medium
+  Assignee: Tom Anderson
+  
+- DB-303: Set up RDS read replicas for reporting
+  Status: In Progress
+  Priority: High
+  Assignee: Priya Patel
+
+- DB-304: Configure ElastiCache for session management
+  Status: Done
+  Priority: Medium
+  Assignee: Kevin Brown
+
+=== Confluence Integration Data ===
+
+Key Documentation:
+- Database Architecture Diagrams
+- Backup and Recovery Procedures
+- Performance Tuning Guidelines
+- Migration Runbooks
+- Database Schema Documentation
+
+Recent Updates:
+- RDS upgrade procedures
+- DynamoDB capacity planning guide
+- Database monitoring best practices
+
+=== AWS Services Managed ===
+- RDS (PostgreSQL, MySQL, Aurora)
+- DynamoDB (NoSQL database)
+- ElastiCache (Redis, Memcached)
+- Database Migration Service (DMS)
+- RDS Proxy (Connection pooling)
+- Aurora Serverless
+- DocumentDB (MongoDB-compatible)
+- Neptune (Graph database)
+
+=== Slack Integration Data ===
+
+Key Discussions:
+- DATABASE mentioned 92 times in #database channel (last 30 days)
+- 56 performance alerts in #db-alerts
+- 28 migration discussions in #data-engineering
+
+Team Activity:
+- Database optimizations: 34
+- Schema changes: 18
+- Backup verifications: 60
+- Average query response time: 45ms
+
+=== On-Call Rotation ===
+Current on-call: Maria Garcia
+Backup: Tom Anderson
+Escalation: Priya Patel
+
+=== Recent Database Incidents ===
+- 2024-10-20: RDS connection pool exhaustion - resolved in 20 minutes
+- 2024-10-14: DynamoDB throttling - capacity increased
+- 2024-10-09: Slow query causing performance issues - optimized

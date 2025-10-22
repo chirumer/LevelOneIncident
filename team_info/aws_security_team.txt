@@ -1,0 +1,77 @@
+Team Name: AWS Security Team
+Team Lead: Robert Zhang
+Members: Robert Zhang, Emily Watson, Carlos Martinez, Lisa Chen, James Wilson
+
+=== Team Overview ===
+The AWS Security team manages IAM policies, security compliance, threat detection, and security incident response across all AWS accounts.
+
+=== JIRA Integration Data ===
+
+Active Issues:
+- SEC-201: Implement AWS GuardDuty findings automation
+  Status: In Progress
+  Priority: Critical
+  Assignee: Robert Zhang
+  
+- SEC-202: Review and update IAM policies for least privilege
+  Status: In Progress
+  Priority: High
+  Assignee: Emily Watson
+  
+- SEC-203: Configure AWS Security Hub compliance checks
+  Status: To Do
+  Priority: Medium
+  Assignee: Carlos Martinez
+
+- SEC-204: Implement AWS WAF rules for API protection
+  Status: Done
+  Priority: High
+  Assignee: Lisa Chen
+
+=== Confluence Integration Data ===
+
+Key Documentation:
+- AWS Security Best Practices
+- IAM Policy Templates
+- Incident Response Playbooks
+- Compliance Requirements (SOC2, HIPAA)
+- Security Audit Procedures
+
+Recent Updates:
+- Updated encryption key rotation procedures
+- New AWS Config rules for compliance
+- Security training materials
+
+=== AWS Services Managed ===
+- IAM (Identity and Access Management)
+- AWS Security Hub (Centralized security findings)
+- GuardDuty (Threat detection)
+- AWS WAF (Web Application Firewall)
+- CloudTrail (Audit logging)
+- KMS (Key Management Service)
+- AWS Config (Compliance monitoring)
+- Secrets Manager (Credential management)
+- Inspector (Vulnerability scanning)
+
+=== Slack Integration Data ===
+
+Key Discussions:
+- SECURITY mentioned 156 times in #security channel (last 30 days)
+- 78 GuardDuty alerts in #security-alerts
+- 34 compliance discussions in #compliance
+
+Team Activity:
+- Security reviews completed: 45
+- IAM policy updates: 23
+- Security incidents handled: 8
+- Average response time: 15 minutes
+
+=== On-Call Rotation ===
+Current on-call: Robert Zhang
+Backup: Emily Watson
+Escalation: Carlos Martinez
+
+=== Recent Security Incidents ===
+- 2024-10-18: Suspicious API calls detected - investigated, false positive
+- 2024-10-12: Unauthorized IAM access attempt - blocked and investigated
+- 2024-10-08: S3 bucket misconfiguration - fixed immediately

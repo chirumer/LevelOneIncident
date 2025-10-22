@@ -1,8 +1,18 @@
-# Multi-Agent Team Information System
+# Multi-Agent Incident Response System
 # Python 3.8+ required
 
-# No external dependencies required - uses only Python standard library
-# The system is built with:
+# Core Dependencies
+requests>=2.31.0          # For Gemini API calls
+python-dotenv>=1.0.0      # For environment variable management
+
+# Optional (for development)
+# pytest>=7.4.0           # For testing
+# black>=23.0.0           # For code formatting
+
+# Standard library modules used:
 # - re (regular expressions)
 # - os (file system operations)
 # - typing (type hints)
+# - json (JSON parsing)
+# - datetime (time handling)
+# - http.server (web server)
