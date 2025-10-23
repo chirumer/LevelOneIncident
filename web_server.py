@@ -566,6 +566,10 @@ class IncidentResponseHandler(BaseHTTPRequestHandler):
                     <button type="button" class="example-btn" onclick="loadExample('security')">🔒 Security Breach</button>
                     <button type="button" class="example-btn" onclick="loadExample('lambda')">⚡ Lambda Timeout</button>
                     <button type="button" class="example-btn" onclick="loadExample('s3')">📦 S3 Access Issue</button>
+                    <button type="button" class="example-btn" onclick="loadExample('api')">🌐 API Slowdown</button>
+                    <button type="button" class="example-btn" onclick="loadExample('disk')">💿 Disk Space Alert</button>
+                    <button type="button" class="example-btn" onclick="loadExample('ssl')">🔐 SSL Certificate Expiry</button>
+                    <button type="button" class="example-btn" onclick="loadExample('memory')">🧠 Memory Leak</button>
                 </div>
             </div>
             <form id="incidentForm">
@@ -770,6 +774,50 @@ class IncidentResponseHandler(BaseHTTPRequestHandler):
                     reported_by: 'DevOps Team',
                     detection_method: 'internal',
                     initial_actions: 'Reviewed recent S3 bucket policy changes, attempted to rollback policy (access denied), verified IAM role permissions, checked CloudTrail for policy modification events'
+                }},
+                'api': {{
+                    title: 'API Response Time Degradation',
+                    description: 'REST API endpoints showing increased response times. Average latency increased from 200ms to 3000ms over the past hour. Affecting all API Gateway endpoints.',
+                    severity: 'high',
+                    deadline: 8,
+                    affected_services: 'API Gateway, Lambda, DynamoDB',
+                    impact: 'Mobile app and web application experiencing slow performance. User complaints increasing. Approximately 25,000 active users affected.',
+                    reported_by: 'Monitoring Team',
+                    detection_method: 'monitoring',
+                    initial_actions: 'Checked API Gateway metrics, reviewed Lambda execution times, verified DynamoDB throttling (none detected)'
+                }},
+                'disk': {{
+                    title: 'EC2 Instance Disk Space Critical',
+                    description: 'Production EC2 instance (i-0abc123def) disk usage at 95%. Application logs filling up /var/log partition. Risk of service disruption if disk fills completely.',
+                    severity: 'medium',
+                    deadline: 6,
+                    affected_services: 'EC2',
+                    impact: 'No immediate user impact, but application may crash if disk fills. Log rotation not functioning properly.',
+                    reported_by: 'CloudWatch Alarm',
+                    detection_method: 'monitoring',
+                    initial_actions: 'Identified large log files, manually compressed old logs to free 10% space temporarily'
+                }},
+                'ssl': {{
+                    title: 'SSL Certificate Expiring Soon',
+                    description: 'SSL certificate for api.example.com expires in 5 days. Certificate renewal process needs to be initiated to avoid service disruption.',
+                    severity: 'low',
+                    deadline: 96,
+                    affected_services: 'CloudFront, Route53, ACM',
+                    impact: 'No current impact. If not renewed, users will see security warnings and API access will be blocked.',
+                    reported_by: 'Security Team',
+                    detection_method: 'automated',
+                    initial_actions: 'Verified certificate details in ACM, checked DNS validation records'
+                }},
+                'memory': {{
+                    title: 'Application Memory Leak Detected',
+                    description: 'Node.js application showing gradual memory increase over 24 hours. Memory usage started at 512MB, now at 3.2GB and climbing. Application performance degrading.',
+                    severity: 'high',
+                    deadline: 12,
+                    affected_services: 'EC2, ECS',
+                    impact: 'Application becoming unresponsive. Response times increasing. Will require restart soon, causing brief downtime.',
+                    reported_by: 'DevOps Team',
+                    detection_method: 'monitoring',
+                    initial_actions: 'Captured heap dump for analysis, reviewed recent code deployments, prepared restart procedure'
                 }}
             }};
             
